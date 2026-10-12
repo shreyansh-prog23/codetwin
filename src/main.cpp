@@ -1,6 +1,9 @@
 #include <fstream>
 #include <iostream>
+#include <sstream>
 #include <string>
+
+#include "tokenizer.h"
 
 int main(int argc, char* argv[]) {
     if (argc < 2) {
@@ -14,10 +17,9 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    std::string line;
-    int count = 0;
-    while (std::getline(in, line)) count++;
+    std::stringstream buffer;
+    buffer << in.rdbuf();
 
-    std::cout << count << " lines\n";
+    std::cout << removeComments(buffer.str());
     return 0;
 }
